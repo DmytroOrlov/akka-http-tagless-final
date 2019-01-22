@@ -1,8 +1,7 @@
 package example
 
+import cats.Applicative
 import cats.effect.Async
-
-import scala.concurrent.Future
 
 trait Database[F[_]] {
   def load(id: Int): F[User]
@@ -19,10 +18,10 @@ object Database {
     def save(user: User): F[Unit] = Async[F].unit
   }
 
-  def future: Database[Future] = new Database[Future] {
-    override def load(id: Int): Future[User] = Future.successful(User(id))
+  def future[F[_]: Applicative]: Database[F] = new Database[F] {
+    def load(id: Int): F[User] = Applicative[F].pure(User(id))
 
-    override def save(user: User): Future[Unit] = Future.unit
+    def save(user: User): F[Unit] = Applicative[F].unit
   }
 }
 
