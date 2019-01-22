@@ -1,6 +1,6 @@
 import Dependencies._
 
-addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.8")
+addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.9")
 
 lazy val circeVersion = "0.11.1"
 
