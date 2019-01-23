@@ -13,7 +13,7 @@ object Database {
   def apply[F[_]](implicit F: Database[F]): Database[F] = F
 
   def database[F[_]: Async]: Database[F] = new Database[F] {
-    def load(id: Int): F[User] = Async[F].pure(User(id))
+    def load(id: Int): F[User] = Async[F].delay(User(id))
 
     def save(user: User): F[Unit] = Async[F].unit
   }
