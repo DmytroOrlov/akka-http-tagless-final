@@ -16,34 +16,35 @@ import monix.execution.Scheduler
 import scala.concurrent.Future
 
 object Launcher extends App {
-  def routable[F[_]: Database: Marshallable: Applicative] = Applicative[F].pure(
+  def route[R[_]: Database: Marshallable] =
     get {
       path("users" / IntNumber) { id =>
-        complete(Database[F].load(id))
+        complete(Database[R].load(id))
       }
     }
-  )
 
   implicit val system: ActorSystem = ActorSystem("akka-http")
   implicit val mat: Materializer = ActorMaterializer()
   implicit val sc: Scheduler = Scheduler(system.dispatcher)
 
-  def bind[F[_]: Database: Console: Http: Marshallable: Monad]: F[ServerBinding] =
+  def program[F[_]: Console: Http: Monad, R[_]: Database: Marshallable]: F[ServerBinding] =
     for {
       _ <- Console[F].printLn("starting...")
-      route <- routable
-      binding <- Http[F].bindAndHandle(route)
+      binding <- Http[F].bindAndHandle(route[R])
       _ <- Console[F].printLn("started")
     } yield binding
 
-  def program = {
-    type Effect[A] = Task[A]
+  val app: Effect[_] = {
+    implicit val io = IoAsync.ioAsync(Scheduler.io("io-scheduler"))
     implicit val database = Database.database[Effect]
     implicit val console = Console.console[Effect]
     implicit val http = Http.http
 
-    bind[Effect]
+    program[Effect, Effect0]
   }
 
-  program.runSyncUnsafe()
+  type Effect[A] = Task[A]
+  type Effect0[A] = Task[A]
+
+  app.runSyncUnsafe()
 }

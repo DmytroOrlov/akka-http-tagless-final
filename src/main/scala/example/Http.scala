@@ -9,8 +9,7 @@ import akka.stream.scaladsl.Flow
 import monix.eval.Task
 
 trait Http[F[_]] {
-  def bindAndHandle(
-      route: Flow[HttpRequest, HttpResponse, Any]): F[ServerBinding]
+  def bindAndHandle(route: Flow[HttpRequest, HttpResponse, Any]): F[ServerBinding]
 }
 
 object Http {
