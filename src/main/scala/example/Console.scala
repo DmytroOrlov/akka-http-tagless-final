@@ -8,5 +8,5 @@ object Console {
   def apply[F[_]](implicit F: Console[F]): Console[F] = F
 
   def console[F[_]: IoAsync]: Console[F] =
-    (line: String) => IoAsync[F].delay(println(line))
+    (line: String) ⇒ IoAsync[F].delay(println(line))
 }
