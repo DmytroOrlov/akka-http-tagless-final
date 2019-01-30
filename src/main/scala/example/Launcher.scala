@@ -7,8 +7,8 @@ import akka.stream.{ActorMaterializer, Materializer}
 import cats.Monad
 import cats.effect.IO
 import cats.implicits._
-import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport._
-import example.Marshallable._
+import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport.marshaller
+import example.Marshallable.marshal
 import io.circe.generic.auto._
 import monix.eval.Task
 import monix.execution.Scheduler
