@@ -1,6 +1,7 @@
 import Dependencies._
 
 addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.9")
+addCompilerPlugin(("org.scalameta" % "paradise" % "3.0.0-M11").cross(CrossVersion.full))
 
 lazy val circeVersion = "0.11.1"
 
@@ -13,8 +14,9 @@ lazy val `akka-http-tagless-final` = (project in file("."))
     )),
     scalacOptions += "-Ypartial-unification",
     libraryDependencies ++= Seq(
-      "org.typelevel" %% "cats-core" % "1.6.0-RC1",
+      "org.typelevel" %% "cats-core" % "1.6.0",
       "org.typelevel" %% "cats-mtl-core" % "0.4.0",
+      "org.typelevel" %% "cats-tagless-macros" % "0.2.0",
       "org.typelevel" %% "cats-effect" % "1.2.0",
       "io.monix" %% "monix" % "3.0.0-RC2",
       "com.typesafe.akka" %% "akka-http" % "10.1.7",

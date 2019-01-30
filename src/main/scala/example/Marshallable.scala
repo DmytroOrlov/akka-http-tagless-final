@@ -30,6 +30,6 @@ object Marshallable {
 
   implicit val marshallableIO: Marshallable[IO] = new Marshallable[IO] {
     def marshal[A](implicit m: ToResponseMarshaller[A]): ToResponseMarshaller[IO[A]] =
-      implicitly[ToResponseMarshaller[Future[A]]].compose(io ⇒ io.unsafeToFuture())
+      implicitly[ToResponseMarshaller[Future[A]]].compose(_.unsafeToFuture())
   }
 }

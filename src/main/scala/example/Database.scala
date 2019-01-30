@@ -2,7 +2,9 @@ package example
 
 import cats.Applicative
 import cats.syntax.applicative._
+import cats.tagless._
 
+@finalAlg
 trait Database[F[_]] {
   def load(id: Int): F[User]
 
@@ -10,8 +12,6 @@ trait Database[F[_]] {
 }
 
 object Database {
-  def apply[F[_]](implicit F: Database[F]): Database[F] = F
-
   def database[F[_]: IoAsync]: Database[F] = new Database[F] {
     def load(id: Int): F[User] = IoAsync[F].delay(User(id))
 
