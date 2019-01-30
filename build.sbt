@@ -13,7 +13,7 @@ lazy val `akka-http-tagless-final` = (project in file("."))
     )),
     scalacOptions += "-Ypartial-unification",
     libraryDependencies ++= Seq(
-      "org.typelevel" %% "cats-core" % "1.5.0",
+      "org.typelevel" %% "cats-core" % "1.6.0-RC1",
       "org.typelevel" %% "cats-mtl-core" % "0.4.0",
       "org.typelevel" %% "cats-effect" % "1.2.0",
       "io.monix" %% "monix" % "3.0.0-RC2",
