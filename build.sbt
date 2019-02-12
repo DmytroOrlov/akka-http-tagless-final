@@ -20,7 +20,7 @@ lazy val `akka-http-tagless-final` = (project in file("."))
       "org.typelevel" %% "cats-effect" % "1.2.0",
       "io.monix" %% "monix" % "3.0.0-RC2",
       "com.typesafe.akka" %% "akka-http" % "10.1.7",
-      "de.heikoseeberger" %% "akka-http-circe" % "1.24.3",
+      "de.heikoseeberger" %% "akka-http-circe" % "1.25.2",
       scalaTest % Test,
       scalaCheck % Test
     ) ++ Seq(

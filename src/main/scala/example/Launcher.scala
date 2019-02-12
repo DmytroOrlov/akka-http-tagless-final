@@ -34,7 +34,7 @@ object Launcher extends App {
       _ <- Console[F].printLn("started")
     } yield binding
 
-  type Effect0[A] = Task[A]
+  type EffectR[A] = Task[A]
   type Effect[A] = Task[A]
 
   val app: Effect[_] = {
@@ -43,7 +43,7 @@ object Launcher extends App {
     implicit val console = Console.console[Effect]
     implicit val http = Http.http
 
-    program[Effect, Effect0]
+    program[Effect, EffectR]
   }
 
   val DefaultShutdownTimeout = 29.seconds
@@ -52,7 +52,7 @@ object Launcher extends App {
     case Left(_) ⇒
       Task
         .deferFuture(system.terminate())
-        .timeout(DefaultShutdownTimeout)
+        .timeoutTo(DefaultShutdownTimeout, Task.unit)
         .map(_ ⇒ System.exit(1))
     case Right(_) ⇒
       ().pure[Effect]
