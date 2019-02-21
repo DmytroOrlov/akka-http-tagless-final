@@ -7,6 +7,7 @@ import akka.stream.{ActorMaterializer, Materializer}
 import cats.Monad
 import cats.effect.IO
 import cats.implicits._
+import com.typesafe.scalalogging.StrictLogging
 import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport.marshaller
 import example.Marshallable.marshal
 import io.circe.generic.auto._
@@ -15,10 +16,11 @@ import monix.execution.Scheduler
 
 import scala.concurrent.duration._
 
-object Launcher extends App {
+object Launcher extends App with StrictLogging {
   def route[R[_]: Database: Marshallable] =
     get {
       path("users" / IntNumber) { id ⇒
+        logger.debug(s"request id=$id")
         complete(Database[R].load(id))
       }
     }
