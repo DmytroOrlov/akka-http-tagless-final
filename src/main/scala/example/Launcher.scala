@@ -28,8 +28,10 @@ object Launcher extends App with StrictLogging {
   implicit val system: ActorSystem = ActorSystem("akka-http")
   implicit val mat: Materializer = ActorMaterializer()
   implicit val sc: Scheduler = Scheduler(system.dispatcher)
+  implicit val cs = IO.contextShift(sc)
+  implicit val timer = IO.timer(sc)
 
-  def program[F[_]: Console: Http: Monad, R[_]: Database: Marshallable]: F[ServerBinding] =
+  def program[F[_]: Http: Console: Monad, R[_]: Database: Marshallable]: F[ServerBinding] =
     for {
       _ <- Console[F].printLn("starting...")
       binding <- Http[F].bindAndHandle(route[R])
@@ -40,10 +42,10 @@ object Launcher extends App with StrictLogging {
   type Effect[A] = Task[A]
 
   val app: Effect[_] = {
-    implicit val io = IoAsync.ioAsync(Scheduler.io("io-scheduler"))
+    implicit val io = IoSync.task(Scheduler.io("io-scheduler"))
+    implicit val http = Http.task
     implicit val database = Database.database[Effect]
     implicit val console = Console.console[Effect]
-    implicit val http = Http.http
 
     program[Effect, EffectR]
   }

@@ -3,6 +3,7 @@ package example
 import cats.Applicative
 import cats.syntax.applicative._
 import cats.tagless._
+import com.typesafe.scalalogging.StrictLogging
 
 @finalAlg
 trait Database[F[_]] {
@@ -11,11 +12,14 @@ trait Database[F[_]] {
   def save(user: User): F[Unit]
 }
 
-object Database {
-  def database[F[_]: IoAsync]: Database[F] = new Database[F] {
-    def load(id: Int): F[User] = IoAsync[F].delay(User(id))
+object Database extends StrictLogging {
+  def database[F[_]: IoSync]: Database[F] = new Database[F] {
+    def load(id: Int): F[User] = IoSync[F].delay {
+      logger.debug("Database")
+      User(id)
+    }
 
-    def save(user: User): F[Unit] = IoAsync[F].unit
+    def save(user: User): F[Unit] = IoSync[F].unit
   }
 
   def future[F[_]: Applicative]: Database[F] = new Database[F] {
