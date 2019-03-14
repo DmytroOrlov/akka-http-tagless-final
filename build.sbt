@@ -5,7 +5,7 @@ addCompilerPlugin(("org.scalameta" % "paradise" % "3.0.0-M11").cross(CrossVersio
 
 lazy val circeVersion = "0.11.1"
 
-lazy val zioVersion = "1.0-RC1"
+lazy val zioVersion = "0.11"
 
 lazy val `akka-http-tagless-final` = (project in file("."))
   .settings(
@@ -14,7 +14,10 @@ lazy val `akka-http-tagless-final` = (project in file("."))
       scalaVersion := "2.12.8",
       version := "0.1.0-SNAPSHOT"
     )),
-    scalacOptions += "-Ypartial-unification",
+    scalacOptions ++= Seq(
+      //      "-deprecation",
+      "-Ypartial-unification"
+    ),
     libraryDependencies ++= Seq(
       "org.scalaz" %% "scalaz-zio" % zioVersion,
       "org.scalaz" %% "scalaz-zio-interop-cats" % zioVersion,
