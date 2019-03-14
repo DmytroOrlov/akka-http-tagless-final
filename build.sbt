@@ -5,6 +5,8 @@ addCompilerPlugin(("org.scalameta" % "paradise" % "3.0.0-M11").cross(CrossVersio
 
 lazy val circeVersion = "0.11.1"
 
+lazy val zioVersion = "1.0-RC1"
+
 lazy val `akka-http-tagless-final` = (project in file("."))
   .settings(
     inThisBuild(List(
@@ -14,6 +16,8 @@ lazy val `akka-http-tagless-final` = (project in file("."))
     )),
     scalacOptions += "-Ypartial-unification",
     libraryDependencies ++= Seq(
+      "org.scalaz" %% "scalaz-zio" % zioVersion,
+      "org.scalaz" %% "scalaz-zio-interop-cats" % zioVersion,
       "org.typelevel" %% "cats-core" % "1.6.0",
       "org.typelevel" %% "cats-mtl-core" % "0.4.0",
       "org.typelevel" %% "cats-tagless-macros" % "0.2.0",
