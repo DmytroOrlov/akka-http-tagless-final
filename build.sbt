@@ -5,7 +5,7 @@ addCompilerPlugin(("org.scalameta" % "paradise" % "3.0.0-M11").cross(CrossVersio
 
 lazy val circeVersion = "0.11.1"
 
-lazy val zioVersion = "0.11"
+lazy val zioVersion = "1.0-RC3"
 
 lazy val `akka-http-tagless-final` = (project in file("."))
   .settings(
