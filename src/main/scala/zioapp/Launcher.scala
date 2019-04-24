@@ -41,10 +41,10 @@ object Launcher extends scala.App with DefaultRuntime with StrictLogging {
 
   val DefaultShutdownTimeout = 29.seconds
 
-  val app = program.catchAll { _ ⇒
-    for {
-      _ <- IO.fromFuture(_ ⇒ system.terminate()).timeout(DefaultShutdownTimeout)
-    } yield sys.exit(1)
+  val app = program.catchAll { e ⇒
+    logger.error("terminate", e)
+    IO.fromFuture(_ ⇒ system.terminate()).timeout(DefaultShutdownTimeout) *>
+      IO.effectTotal(sys.exit(1))
   }
 
   unsafeRun(
