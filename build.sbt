@@ -22,7 +22,7 @@ lazy val `akka-http-tagless-final` = (project in file("."))
       "org.scalaz" %% "scalaz-zio" % zioVersion,
       "org.scalaz" %% "scalaz-zio-interop-cats" % zioVersion,
       "org.typelevel" %% "cats-core" % "1.6.0",
-      "org.typelevel" %% "cats-mtl-core" % "0.4.0",
+      "org.typelevel" %% "cats-mtl-core" % "0.5.0",
       "org.typelevel" %% "cats-tagless-macros" % "0.2.0",
       "org.typelevel" %% "cats-effect" % "1.2.0",
       "io.monix" %% "monix" % "3.0.0-RC2",
