@@ -57,7 +57,7 @@ object Launcher extends App with StrictLogging {
       Task
         .deferFuture(system.terminate())
         .timeoutTo(DefaultShutdownTimeout, Task.unit)
-        .map(_ ⇒ System.exit(1))
+        .map(_ ⇒ sys.exit(1))
     case Right(_) ⇒
       ().pure[Effect]
   }).runSyncUnsafe()
