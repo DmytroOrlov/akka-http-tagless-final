@@ -24,7 +24,7 @@ lazy val `akka-http-tagless-final` = (project in file("."))
       "org.typelevel" %% "cats-core" % "2.0.0-M1",
       "org.typelevel" %% "cats-mtl-core" % "0.5.0",
       "org.typelevel" %% "cats-tagless-macros" % "0.2.0",
-      "org.typelevel" %% "cats-effect" % "1.2.0",
+      "org.typelevel" %% "cats-effect" % "1.3.0",
       "io.monix" %% "monix" % "3.0.0-RC2",
       "com.typesafe.akka" %% "akka-http" % "10.1.8",
       "de.heikoseeberger" %% "akka-http-circe" % "1.25.2",
