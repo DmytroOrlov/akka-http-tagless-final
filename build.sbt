@@ -1,6 +1,6 @@
 import Dependencies._
 
-addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.10")
+addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.10.2")
 addCompilerPlugin(("org.scalameta" % "paradise" % "3.0.0-M11").cross(CrossVersion.full))
 
 lazy val circeVersion = "0.11.1"
