@@ -1,6 +1,6 @@
 import Dependencies._
 
-addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.10.2")
+addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.10.3")
 addCompilerPlugin(("org.scalameta" % "paradise" % "3.0.0-M11").cross(CrossVersion.full))
 
 lazy val circeVersion = "0.11.1"
