@@ -2,7 +2,7 @@ package zioapp.database
 
 import com.typesafe.scalalogging.StrictLogging
 import example.User
-import scalaz.zio._
+import zio._
 
 trait Database {
   def database: Database.Service[Any]

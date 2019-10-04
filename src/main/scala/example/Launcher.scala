@@ -19,7 +19,7 @@ import scala.concurrent.duration._
 object Launcher extends App with StrictLogging {
   def route[R[_]: Database: Marshallable] =
     get {
-      path("users" / IntNumber) { id ⇒
+      path("users" / IntNumber) { id =>
         logger.debug(s"request id=$id")
         complete(Database[R].load(id))
       }
@@ -53,12 +53,12 @@ object Launcher extends App with StrictLogging {
   val DefaultShutdownTimeout = 29.seconds
 
   (app.attempt >>= {
-    case Left(_) ⇒
+    case Left(_) =>
       Task
         .deferFuture(system.terminate())
         .timeoutTo(DefaultShutdownTimeout, Task.unit)
-        .map(_ ⇒ sys.exit(1))
-    case Right(_) ⇒
+        .map(_ => sys.exit(1))
+    case Right(_) =>
       ().pure[Effect]
   }).runSyncUnsafe()
 }

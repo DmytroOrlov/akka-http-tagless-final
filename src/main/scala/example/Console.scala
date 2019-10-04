@@ -10,7 +10,7 @@ trait Console[F[_]] {
 
 object Console extends StrictLogging {
   def console[F[_]: IoSync]: Console[F] =
-    (line: String) ⇒
+    (line: String) =>
       IoSync[F].delay {
         logger.debug("Console")
         println(line)

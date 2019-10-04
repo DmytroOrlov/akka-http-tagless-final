@@ -6,7 +6,7 @@ import akka.http.scaladsl.Http.ServerBinding
 import akka.http.scaladsl.model.{HttpRequest, HttpResponse}
 import akka.stream.Materializer
 import akka.stream.scaladsl.Flow
-import scalaz.zio._
+import zio._
 
 trait Http {
   def http: Http.Service[Any]
@@ -25,7 +25,7 @@ object Http {
       def bindAndHandle(route: Flow[HttpRequest, HttpResponse, Any])(
           implicit system: ActorSystem,
           mat: Materializer): Task[ServerBinding] =
-        IO.fromFuture(_ ⇒ scaladsl.Http().bindAndHandle(route, "0.0.0.0", 8080))
+        IO.fromFuture(_ => scaladsl.Http().bindAndHandle(route, "0.0.0.0", 8080))
     }
   }
 

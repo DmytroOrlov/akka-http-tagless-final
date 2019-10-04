@@ -1,7 +1,7 @@
 package zioapp
 
 import example.User
-import scalaz.zio.ZIO
+import zio.ZIO
 
 package object database extends Database.Service[Database] {
   def load(id: Int): ZIO[Database, Throwable, User] =

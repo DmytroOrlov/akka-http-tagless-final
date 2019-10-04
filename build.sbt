@@ -1,33 +1,30 @@
 import Dependencies._
 
-addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.10.3")
-addCompilerPlugin(("org.scalameta" % "paradise" % "3.0.0-M11").cross(CrossVersion.full))
+lazy val circeVersion = "0.12.1"
 
-lazy val circeVersion = "0.11.1"
-
-lazy val zioVersion = "1.0-RC4"
+lazy val zioVersion = "1.0.0-RC14"
 
 lazy val `akka-http-tagless-final` = (project in file("."))
   .settings(
     inThisBuild(List(
-      organization := "com.github.DmytroOrlov",
-      scalaVersion := "2.12.8",
+      organization := "io.github.DmytroOrlov",
+      scalaVersion := "2.13.1",
       version := "0.1.0-SNAPSHOT"
     )),
     scalacOptions ++= Seq(
-      //      "-deprecation",
-      "-Ypartial-unification"
+      "-Ymacro-annotations",
+      "-deprecation",
     ),
     libraryDependencies ++= Seq(
-      "org.scalaz" %% "scalaz-zio" % zioVersion,
-      "org.scalaz" %% "scalaz-zio-interop-cats" % zioVersion,
-      "org.typelevel" %% "cats-core" % "2.0.0-M1",
-      "org.typelevel" %% "cats-mtl-core" % "0.5.0",
-      "org.typelevel" %% "cats-tagless-macros" % "0.7",
-      "org.typelevel" %% "cats-effect" % "1.3.0",
-      "io.monix" %% "monix" % "3.0.0-RC2",
-      "com.typesafe.akka" %% "akka-http" % "10.1.8",
-      "de.heikoseeberger" %% "akka-http-circe" % "1.27.0",
+      "dev.zio" %% "zio" % zioVersion,
+      "dev.zio" %% "zio-interop-cats" % "2.0.0.0-RC4",
+      "org.typelevel" %% "cats-core" % "2.0.0",
+      "org.typelevel" %% "cats-effect" % "2.0.0",
+      "org.typelevel" %% "cats-mtl-core" % "0.7.0",
+      "org.typelevel" %% "cats-tagless-macros" % "0.10",
+      "io.monix" %% "monix" % "3.0.0",
+      "com.typesafe.akka" %% "akka-http" % "10.1.10",
+      "de.heikoseeberger" %% "akka-http-circe" % "1.29.1",
       "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2",
       "ch.qos.logback" % "logback-classic" % "1.2.3",
       scalaTest % Test,
@@ -36,5 +33,6 @@ lazy val `akka-http-tagless-final` = (project in file("."))
       "io.circe" %% "circe-core",
       "io.circe" %% "circe-generic",
       "io.circe" %% "circe-parser"
-    ).map(_ % circeVersion)
+    ).map(_ % circeVersion),
+    addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.11.0" cross CrossVersion.full),
   )
